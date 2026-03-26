@@ -20,7 +20,12 @@ app.use(express.json());
 // 模拟数据库
 // 使用一个空数组来存储用户数据
 // ⚠️ 注意：数据只存在内存中，重启服务器后数据会丢失
-let users = [];
+let users = [
+  {
+    username: "test1",
+    password: "123",
+  },
+];
 
 // 注册接口
 // 定义一个 POST 请求处理函数，路径为 '/register'
