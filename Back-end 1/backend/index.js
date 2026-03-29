@@ -29,7 +29,7 @@ let users = [
 
 // 注册接口
 // 定义一个 POST 请求处理函数，路径为 '/register'
-app.post("/register", (req, res) => {
+app.post("/Register", (req, res) => {
   console.log("注册收到的数据:", req.body);
   // 从请求体中解构出 username 和 password
   // 前提：前端发送的是 JSON 格式，且上面启用了 express.json()
@@ -46,7 +46,7 @@ app.post("/register", (req, res) => {
 
 // 登录接口
 // 定义一个 POST 请求处理函数，路径为 '/login'
-app.post("/login", (req, res) => {
+app.post("/Login", (req, res) => {
   console.log("====== 登录调试 ======");
   console.log("当前 users:", users);
   console.log("收到的数据:", req.body);
