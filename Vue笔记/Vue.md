@@ -405,6 +405,19 @@ Ant Design Vue 是一套基于 Vue 的 企业级 UI 组件库，由蚂蚁金服 
 
 
 
+接下来：
+
+1.使用Ant Design Vue
+
+2.A. 两个独立页面：点击“去注册”跳转到新页面（需要用到 Vue Router），除此之外再加入一个欢迎页
+
+3.后端也我自己写，想顺便练习Axios和数据库知识（目前还不会）
+
+4.表单校验：比如用户名不能为空、密码必须大于6位。
+密码明文/密文切换：点小眼睛图标显示密码。
+
+5.项目已经创建好了，已经执行到了npm run dev这一步，已经有了一个空白页面
+
 
 
 
@@ -534,6 +547,8 @@ methods: {
 
 
 
+
+
 ### **注意**：
 
 - **`<router-link>`** 会被渲染成 `<a>` 标签，但点击时不会刷新页面。
@@ -542,6 +557,42 @@ methods: {
 - **区别 `$router` 和 `$route`**：
   - `$router`：路由器实例，用来**执行跳转**（`push`， `go`， `replace`）。
   - `$route`：当前激活的路由信息，用来**获取参数**（`params`， `query`， `path`）。
+
+
+
+### 实例分析1
+
+```ts
+// 这是我的登录注册2.0里面的index.ts
+
+//这行代码从 vue-router 库中导入了两个核心函数：
+//- createRouter: 用于创建和管理路由的实例。
+//- createWebHistory: 用于启用 HTML5 History 模式，这种模式下的 URL 看起来更干净，没有 # 符号。
+//- RouteRecordRaw :为你的路由配置数组提供类型检查
+import { createRouter, createWebHistory } from 'vue-router'
+import type { RouteRecordRaw } from 'vue-router';
+
+// 这里调用 createRouter 函数，并传入一个配置对象，创建了一个路由实例，并将其赋值给 router 常量。
+const router = createRouter({
+   // createWebHistory(...) 设置了路由的模式为 HTML5 History 模式。
+   // import.meta.env.BASE_URL 是一个 Vite 环境变量，它通常指向你在 vite.config.js 或 vite.config.ts 文件中配置        的 base 选项。这个配置主要用于处理应用部署在服务器子路径（例如 example.com/my-app/）的情况。如果你的应用部署在根        路径，这个值通常是 /
+  history: createWebHistory(import.meta.env.BASE_URL),
+  // 这是一个数组，用于定义你所有的路由规则。目前数组是空的 []，意味着还没有定义任何路径。你需要在这里添加对象来配置路径和组      件的对应关系
+  routes: [],
+})
+
+// 最后，将创建好的 router 实例导出。这样，你就可以在 main.js 或 main.ts 文件中导入它，并通过 app.use(router) 将其挂载到 Vue 应用上，使整个应用具备路由功能。
+export default router
+
+```
+
+
+
+
+
+
+
+
 
 
 
