@@ -43,7 +43,7 @@
 import { reactive, ref } from 'vue'
 import { useRouter } from 'vue-router'
 import { message } from 'ant-design-vue'
-import request from '@/API/request'
+import request from '@/api/request'
 
 const router = useRouter()
 const loading = ref(false) // 控制按钮加载状态
@@ -58,6 +58,8 @@ const handleLogin = async (values) => {
     const res = await request.post('/login', values)
     if (res.success) {
       message.success('欢迎回来！')
+      // --- 关键代码：把用户名存到浏览器本地存储 ---
+      localStorage.setItem('username', values.username)
       router.push('/welcome')
     }
   } catch (error) {

@@ -1,3 +1,4 @@
+import { message } from 'ant-design-vue'
 import { createRouter, createWebHistory } from 'vue-router'
 
 const router = createRouter({
@@ -10,4 +11,16 @@ const router = createRouter({
   ],
 })
 
+// 路由守卫：每次跳转前都会执行这个函数
+router.beforeEach((to, from, next) => {
+  const isAuthenticated = localStorage.getItem('username') // 检查是否有登录记录
+
+  // 如果要去欢迎页，但没有登录，强制跳到登录页
+  if (to.path === '/welcome' && !isAuthenticated) {
+    message.warning('请先登录')
+    next('/login')
+  } else {
+    next() // 否则放行
+  }
+})
 export default router

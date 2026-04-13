@@ -420,6 +420,29 @@ Ant Design Vue 是一套基于 Vue 的 企业级 UI 组件库，由蚂蚁金服 
 
 
 
+### 后端
+
+#### 搭建后端服务器 (Node.js + Express + SQLite)
+
+我们要在你的项目目录下创建一个新的文件夹 server。
+
+##### 1. 初始化后端环境
+
+打开一个新的终端窗口：
+
+codeBash
+
+```
+mkdir server
+cd server
+npm init -y
+npm install express cors sqlite3 sqlite
+```
+
+- **express**: 极简的 Web 框架。
+- **cors**: 处理跨域（因为前端在 5173 端口，后端在 3000 端口）。
+- **sqlite3 & sqlite**: 操作数据库。
+
 
 
 ## 路由

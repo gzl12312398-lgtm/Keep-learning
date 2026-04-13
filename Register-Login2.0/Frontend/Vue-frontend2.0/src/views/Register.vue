@@ -50,7 +50,7 @@
 import { reactive, ref } from 'vue'
 import { useRouter } from 'vue-router'
 import { message } from 'ant-design-vue'
-import request from '@/API/request' // 引入我们封装好的 axios
+import request from '@/api/request' // 引入我们封装好的 axios
 
 const router = useRouter()
 const loading = ref(false) // 控制按钮加载状态
