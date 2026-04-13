@@ -29,7 +29,7 @@
       </a-form-item>
 
       <a-form-item>
-        <a-button type="primary" html-type="submit" block>登录</a-button>
+        <a-button type="primary" html-type="submit" block:loading="loading">登录</a-button>
       </a-form-item>
 
       <div style="text-align: center">
@@ -40,26 +40,30 @@
 </template>
 
 <script setup>
-import { reactive } from 'vue'
+import { reactive, ref } from 'vue'
 import { useRouter } from 'vue-router'
 import { message } from 'ant-design-vue'
-import axios from 'axios'
+import request from '@/API/request'
 
 const router = useRouter()
+const loading = ref(false) // 控制按钮加载状态
 const formState = reactive({
   username: '',
   password: '',
 })
 
 const handleLogin = async (values) => {
-  console.log('提交的数据:', values)
-  // 这里模拟一下后端接口逻辑
+  loading.value = true
   try {
-    // 等你写好后端了，就把这里换成真实的：await axios.post('/api/login', values)
-    message.success('登录成功！')
-    router.push('/welcome') // 跳转到欢迎页
+    const res = await request.post('/login', values)
+    if (res.success) {
+      message.success('欢迎回来！')
+      router.push('/welcome')
+    }
   } catch (error) {
-    message.error('登录失败')
+    // 拦截器已经报过错了，这里不用写
+  } finally {
+    loading.value = false
   }
 }
 </script>
