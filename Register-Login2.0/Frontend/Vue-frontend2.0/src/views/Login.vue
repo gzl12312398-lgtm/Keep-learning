@@ -56,9 +56,10 @@ const handleLogin = async (values) => {
   loading.value = true
   try {
     const res = await request.post('/login', values)
-    if (res.success) {
+    if (res.status === 204 || res.status === 200 || res.success) {
       message.success('欢迎回来！')
       // --- 关键代码：把用户名存到浏览器本地存储 ---
+      console.log('准备跳转到欢迎页，用户名：', values.username) // 调试输出
       localStorage.setItem('username', values.username)
       router.push('/welcome')
     }

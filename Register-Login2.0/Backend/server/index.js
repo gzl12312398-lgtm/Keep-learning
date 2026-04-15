@@ -49,29 +49,32 @@ app.post("/api/register", async (req, res) => {
 // 登录接口
 app.post("/api/login", async (req, res) => {
   const { username, password } = req.body;
-try {
-  const user = await db.get(
-    "SELECT * FROM users WHERE username = ? AND password = ?",
-    [username, password]
-  );
-  if (user) {
-    // 验证成功，用户存在，生成 JWT
-    const accessToken = jwt.sign({ username }, SECRET, {
-      expiresIn: "15m", // 访问令牌有效期为 15 分钟
-    });
-    const refreshToken = jwt.sign({ username }, SECRET, {
-      expiresIn: "7d", // 刷新令牌有效期为 7 天
-    });
-    res.json({ success: true, message: "登录成功", accessToken, refreshToken });
-  
-} else {
-  res.status(401).json({ success: false, message: "用户名或密码错误" });
-} catch (error) {
-  res.status(500).json({ success: false, message: "服务器错误" });
-}
-
+  try {
+    const user = await db.get(
+      "SELECT * FROM users WHERE username = ? AND password = ?",
+      [username, password],
+    );
+    if (user) {
+      // 验证成功，用户存在，生成 JWT
+      const accessToken = jwt.sign({ username }, SECRET, {
+        expiresIn: "15m", // 访问令牌有效期为 15 分钟
+      });
+      const refreshToken = jwt.sign({ username }, SECRET, {
+        expiresIn: "7d", // 刷新令牌有效期为 7 天
+      });
+      res.json({
+        success: true,
+        message: "登录成功",
+        accessToken,
+        refreshToken,
+      });
+    } else {
+      res.status(401).json({ success: false, message: "用户名或密码错误" });
+    }
+  } catch (error) {
+    res.status(500).json({ success: false, message: "服务器错误" });
+  }
 });
-
 
 app.listen(3000, () => {
   console.log("Server is running at http://localhost:3000");

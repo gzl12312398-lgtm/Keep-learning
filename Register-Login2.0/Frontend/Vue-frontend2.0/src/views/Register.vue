@@ -60,10 +60,11 @@ const handleRegister = async (values) => {
   loading.value = true
   try {
     const res = await request.post('/register', values)
-
-    if (res.success) {
+    console.log('完整的响应对象：', res) // 调试输出
+    if (res.status === 204 || res.status === 200 || res.success) {
       message.success('注册成功！请登录')
       router.push('/login') // 注册成功后跳转到登录页
+      console.log('注册成功，准备跳转到登录页') // 调试输出
     }
   } catch (error) {
     console.error(error)
